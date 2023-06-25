@@ -1,5 +1,6 @@
 create database db_pizzaria_legal;
 
+
  use db_pizzaria_legal;
  
  create table tb_pizzas(
@@ -9,6 +10,7 @@ create database db_pizzaria_legal;
  preco decimal not null,
  primary key (id)
  );
+ 
  
  INSERT INTO tb_pizzas(nome, quantidade, preco) 
 values ("Calabresa",10, 35.80);
@@ -28,6 +30,12 @@ values ("Portuguesa",19, 36.90,1);
 INSERT INTO tb_pizzas(nome, quantidade, preco,categorias_id) 
 values ("Nutella",22, 57.80,3);
 
+create table tb_categorias(
+ id bigint auto_increment,
+ descricao varchar (255) not null,
+ primary key (id)
+ );
+
 -- criando uma coluna nova na tabela pizzas
 ALTER TABLE tb_pizzas ADD categorias_id bigint;
 
@@ -40,6 +48,20 @@ select * from tb_pizzas;
 SELECT * FROM tb_pizzas WHERE preco > 45.00;
 
 SELECT * FROM tb_pizzas WHERE nome LIKE "%m%";
+INSERT INTO tb_categorias (descricao) values ("Salgada");
+INSERT INTO tb_categorias (descricao) values ("Doce");
+INSERT INTO tb_categorias (descricao) values ("Promoção");
+
+select * from tb_categorias;
+
+SELECT nome, quantidade, preco, descricao from tb_pizzas
+INNER JOIN tb_categorias ON tb_categorias.id = tb_pizzas.categorias_id;
+
+SELECT * from tb_pizzas
+LEFT JOIN tb_categorias ON tb_categorias.id = tb_pizzas.categorias_id;
+
+SELECT * from tb_pizzas
+right JOIN tb_categorias ON tb_categorias.id = tb_pizzas.categorias_id;
 
 
 
